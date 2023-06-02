@@ -12,7 +12,6 @@
 }
 
 
-
 .sidebar{
   position: fixed;
   top: 0;
@@ -218,7 +217,7 @@
 .home-section{
   position: relative;
   background: #E4E9F7;
-  height: 100vh;
+  min-height: 100vh;
   left: 260px;
   width: calc(100% - 260px);
   transition: all 0.5s ease;
@@ -271,7 +270,7 @@
 */
 
 .container-xxl{
-    margin-top: 50px;
+    margin-top: 40px;
     padding-right: 50px;
     padding-left: 50px;
 }
@@ -290,6 +289,7 @@
 	border-radius: 3px;
 	min-width: 1000px;
 	box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  margin-bottom: 50px;
 }
 .table-title {        
 	padding-bottom: 15px;
@@ -468,7 +468,7 @@ table.table .avatar {
 }
 /* Modal styles */
 .modal .modal-dialog {
-	max-width: 400px;
+  
 }
 .modal .modal-header, .modal .modal-body, .modal .modal-footer {
 	padding: 20px 30px;

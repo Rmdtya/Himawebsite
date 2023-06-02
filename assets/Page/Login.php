@@ -43,7 +43,12 @@ if (isset($_POST['login'])) {
           $target_nim = trim($nim_target);
 
           $_SESSION['nim'] = $target_nim;
-          // Tampilkan nilai variabel
+
+              if($_SESSION['session_email'] == 'ramadityafirdaus@gmail.com'){
+                  $_SESSION['session_admin'] = true;
+              }else{
+                  $_SESSION['session_admin'] = false;
+              }
       } else {
           echo "Tidak ada hasil yang ditemukan";
       }
@@ -55,24 +60,11 @@ if (isset($_POST['login'])) {
         $err .= "<li>Email dan Password Tidak Sesuai, Inputkan Kembali</li>";
     }
 
-        // $sql1 = "select * from db_users where nim = '$nim'";
-        // $q1 = mysqli_query($koneksi, $sql1);
-        // $r1 = mysqli_fetch_array($q1);
-
-        // if ($nim == '') {
-        //     $err .= "<li>NIM Tidak Terdaftar.</li>";
-        // } elseif ($r1['password'] != $password) {
-        //     $err .= "<li>Password yang dimasukan tidak sesuai.</li>";
-        // }
-
-        // if (empty($err)) {
-        //     $_SESSION['session_nim'] = $nim;
-        //     $_SESSION['session_password'] = md5($password);
-		// 	$_SESSION['session'] = true;
-        //     header("location:../../index.php");
-        // }
     }
 }
+
+
+
 
 ?>
 

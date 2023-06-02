@@ -16,7 +16,7 @@ include "../proses/koneksi_db.php";
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Ninestars Bootstrap Template - Index</title>
+  <title>Peminjaman Barang</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -35,13 +35,12 @@ include "../proses/koneksi_db.php";
   <link href="../vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"> 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-  
   
 
   <!-- Template Main CSS File -->
@@ -64,36 +63,26 @@ include "../proses/koneksi_db.php";
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto" href="../../index.php">Home</a></li>
-          <li><a class="nav-link scrollto" href=" ">Informasi</a></li>
-          <li><a class="nav-link scrollto" href=" ">Kabinet</a></li>
-          <li><a class="nav-link scrollto active" href=" ">Peminjaman</a></li>
-          <li><a class="nav-link scrollto " href=" ">Pemilu</a></li>
-          <li class="dropdown"><a href="#"><span>About</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
+          <li><a class="nav-link scrollto" href="Informasi.php">Informasi</a></li>
+          <li><a class="nav-link scrollto" href="kabinet.php">Kabinet</a></li>
+          <li><a class="nav-link scrollto active">Peminjaman</a></li>
+          <li><a class="nav-link scrollto " href="Pemilu.php">Pemilu</a></li>
+          <li><a class="nav-link scrollto " href="About.php">About</a></li>
+
           <?php
-              if (isset($_SESSION['session'])) {
-                // Session login aktif, tampilkan tombol profile
-                echo '<li><a class="getstarted scrollto" id="login" href="#about">Profile</a></li>';
-            } else {
+          if (isset($_SESSION['session'])) {
+              if($_SESSION["session_admin"]== true){
+                echo '<li><a class="getstarted scrollto" id="login" href="tabel\dashboard.php">Admin</a></li>';
+              }else{
+              echo '<li><a class="getstarted scrollto" id="login" href="Profile.php">Profile</a></li>';
+              }
+          }  
+            else {
                 // Tidak ada session login aktif, tampilkan tombol login
-                echo '<li><a class="getstarted scrollto" id="login" href="assets/page/Login.php">Get Started</a></li>';
+                echo '<li><a class="getstarted scrollto" id="login" href="Login.php">Get Started</a></li>';
             }
           ?>
+          
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -253,7 +242,7 @@ include "../proses/koneksi_db.php";
         <form action="../proses/peminjaman.php" method="POST">
             <div class="modal-header">						
               <h4 class="modal-title">Pinjam Barang</h4>
-              <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+              <i style="font-size:25px; font-weight: bold;"type="button" data-bs-dismiss="modal" aria-hidden="true" class="close">&times;</i>
             </div>
             <div class="modal-body">
               <input type="hidden" name="target_kode" id="target_kode" value="#target_kode">
@@ -288,88 +277,70 @@ include "../proses/koneksi_db.php";
       </div>
     </div>
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="footer-newsletter">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
-            <h4>Follow Us</h4>
-            <p>Dapatkan Berbagai Info Terupdate tentang HIMA RPL</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-          </div>
+ <!-- ======= Footer ======= -->
+ <footer style="padding:0;" id="footer">
+
+<div class="footer-newsletter">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <h4>Follow Us</h4>
+        <p>Dapatkan Berbagai Info Terupdate tentang HIMA RPL</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-top">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-3 col-md-6 footer-contact">
+        <h3>HIMARPL</h3>
+        <p>
+          Jl. Pendidikan No.15, Cibiru Wetan<br>
+          Kec. Cileunyi, Kabupaten Bandung<br>
+          Jawa Barat 40625 <br><br>
+          <strong>Phone:</strong> +62 851 5663 8465<br>
+          <strong>Email:</strong> himarpl@gmail.com<br>
+        </p>
+      </div>
+
+      <div class="col-lg-3 col-md-6 footer-links">
+        <h4>Useful Links</h4>
+        <ul>
+          <li><i class="bx bx-chevron-right active"></i> <a href="#">Home</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="assets/Page/Informasi.php">Informasi</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="assets/Page/Kabinet.php">Kabinet</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="assets/Page/About.php">About</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="assets/Page/Pemilu.php">Pemilu</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 footer-links">
+        <h4>Our Services</h4>
+        <ul>
+          <li><i class="bx bx-chevron-right"></i> <a >Advokasi</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a >Bantuan</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 footer-links">
+        <h4>Our Social Networks</h4>
+        <p>Follow Berbagai Informasi Lainnya di Platform Lainnya</p>
+        <div class="social-links mt-3">
+          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
         </div>
       </div>
+
     </div>
-
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>Ninestars</h3>
-            <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br><br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Social Networks</h4>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
-            <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="container py-4">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Ninestars</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/ninestars-free-bootstrap-3-theme-for-creative/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
+  </div>
+</div>
+</footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

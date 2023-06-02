@@ -506,7 +506,6 @@ section {
   left: calc(50% - 30px);
 }
 
-
 /*--------------------------------------------------------------
 # Services
 --------------------------------------------------------------*/
@@ -577,24 +576,22 @@ section {
 /*--------------------------------------------------------------
 # Why Us
 --------------------------------------------------------------*/
-.why-us .content {
-  padding: 60px 100px 0 100px;
-}
+
 
 .row .content h3 {
   font-weight: 400;
-  font-size: 42px;
+  font-size: 22px;
   color: #37517e;
 }
 
 .why-us .content h4 {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 700;
   margin-top: 5px;
 }
 
 .why-us .content p {
-  font-size: 19px;
+  font-size: 12px;
   color: #848484;
 }
 
@@ -604,10 +601,9 @@ section {
   background-position: center center;
 }
 
-.why-us .accordion-list {
-  padding: 0 100px 60px 100px;
+.why-us .accordion-list{
+  border: #111;
 }
-
 .why-us .accordion-list ul {
   padding: 0;
   list-style: none;
@@ -618,7 +614,7 @@ section {
 }
 
 .why-us .accordion-list li {
-  padding: 20px;
+  padding: 10px;
   background: #fff;
   border-radius: 4px;
 }
@@ -626,7 +622,7 @@ section {
 .why-us .accordion-list a {
   display: block;
   position: relative;
-  font-size: 21px;
+  font-size: 15px;
   line-height: 24px;
   font-weight: 500;
   padding-right: 30px;
@@ -637,7 +633,7 @@ section {
 .why-us .accordion-list span {
   color: #47b2e4;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 15px;
   padding-right: 10px;
 }
 

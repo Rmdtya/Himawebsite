@@ -1,21 +1,25 @@
-<!-- <?php
+<?php
 session_start();
 if(!isset($_SESSION["session"])){
-	header("location:../login.php");
+	header("location:../Login.php");
+}
+
+if($_SESSION["session_admin"] == true){
+
+}else{
+	header("location:../../../index.php");
 }
 
 include "../../proses/koneksi_db.php";
-
-?> -->
+?>
 
 
 
 <!DOCTYPE html>
-<!-- Coding by CodingNepal | www.codingnepalweb.com -->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <title> Database Admin </title>
+    <title> Tabel Users </title>
     <link rel="stylesheet" href="../../css/admin.css">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
@@ -27,17 +31,21 @@ include "../../proses/koneksi_db.php";
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <!-- Boxiocns CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"> -->
+    
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
 <body>
-  <div class="sidebar close">
+<div class="sidebar close">
     <div class="logo-details">
-    <i class='bx bxs-data'></i>
+      <i class='bx bxs-data'></i>
       <span class="logo_name">HIMA RPL</span>
     </div>
     <ul class="nav-links">
       <li>
-        <a href="#">
+        <a href="dashboard.php">
           <i class='bx bx-grid-alt' ></i>
           <span class="link_name">Dashboard</span>
         </a>
@@ -58,9 +66,11 @@ include "../../proses/koneksi_db.php";
           <li><a href="tbl_user.php">User Account</a></li>
           <li><a href="tbl_inventory.php">Inventory</a></li>
           <li><a href="tbl_peminjaman.php">Peminjaman</a></li>
-          <li><a href="tbl_pemilih.php">List Pemilih</a></li>
+          <li><a href="tbl_antrianpeminjaman.php">Antrian Peminjaman</a></li>
+          <li><a href="tbl_historypeminjaman.php">History Peminjaman</a></li>
           <li><a href="tbl_pemilu.php">Pemilu</a></li>
           <li><a href="tbl_informasi.php">Informasi</a></li>
+          <li><a href="tbl_subscriber.php">Subscriber</a></li>
         </ul>
       </li>
       <li>
@@ -77,71 +87,19 @@ include "../../proses/koneksi_db.php";
           <li><a href="../informasi.php">Informasi</a></li>
           <li><a href="../kabinet.php">Kabinet</a></li>
           <li><a href="../Peminjaman.php">Peminjaman</a></li>
-          <li><a href="../Pemilu">Pemilu</a></li>
+          <li><a href="../Pemilu.php">Pemilu</a></li>
           <li><a href="../About.php">About</a></li>
         </ul>
       </li>
       <li>
-        <a href="#">
+        <a href="tbl_suara.php">
           <i class='bx bx-pie-chart-alt-2' ></i>
-          <span class="link_name">Berita</span>
+          <span class="link_name">Pemilu</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Berita</a></li>
+          <li><a class="link_name" href="tbl_suara.php">Pemilu</a></li>
         </ul>
       </li>
-      <!-- <li>
-        <a href="#">
-          <i class='bx bx-line-chart' ></i>
-          <span class="link_name">Chart</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Chart</a></li>
-        </ul>
-      </li>
-      <li>
-        <div class="iocn-link">
-          <a href="#">
-            <i class='bx bx-plug' ></i>
-            <span class="link_name">Plugins</span>
-          </a>
-          <i class='bx bxs-chevron-down arrow' ></i>
-        </div>
-        <ul class="sub-menu">
-          <li><a class="link_name" href="#">Plugins</a></li>
-          <li><a href="#">UI Face</a></li>
-          <li><a href="#">Pigments</a></li>
-          <li><a href="#">Box Icons</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-compass' ></i>
-          <span class="link_name">Explore</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Explore</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-history'></i>
-          <span class="link_name">History</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">History</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-cog' ></i>
-          <span class="link_name">Setting</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Setting</a></li>
-        </ul>
-      </li>
-      <li> -->
     <div class="profile-details">
       <div class="profile-content">
         <img src="../../Image/Ramaditya.png" alt="profileImg">
@@ -151,10 +109,11 @@ include "../../proses/koneksi_db.php";
         <div class="job">Admistrator</div>
       </div>
       <i class='bx bx-log-out' ></i>
+      <i class='bx bx-log-out' ></i>
     </div>
   </li>
 </ul>
-  </div>
+</div>
 
 
   <section class="home-section">
@@ -176,15 +135,10 @@ include "../../proses/koneksi_db.php";
 					</div>
 				</div>
 			</div>
-			<table class="table table-striped table-hover">
+			<table id="users" class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-						</th>
+            <th>No</th>
 						<th>NIM</th>
 						<th>Email</th>
 						<th>Nama</th>
@@ -192,23 +146,19 @@ include "../../proses/koneksi_db.php";
 						<th>Status</th>
             <th>Program Studi</th>
             <th>Telepon</th>
-            <th>Aksi</th>
+            <th>Voting</th>
 					</tr>
 				</thead>
 				<tbody>
           <?php
-
+                    $i = 1;
                     $query2 = mysqli_query($koneksi, "SELECT * FROM tbl_profile");
                     while($data = mysqli_fetch_array($query2)) { ?>
           
                       <tr>
                         <td>
-                            <span class="custom-checkbox">
-                              <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                              <label for="checkbox1"></label>
-                            </span>
+                            <?php echo $i++; ?>
                         </td>
-
                         <td>
                             <?php echo $data['nim']; ?>
                         </td>
@@ -228,11 +178,21 @@ include "../../proses/koneksi_db.php";
                             <?php echo $data['program_studi']; ?>
                         </td>
                         <td>
-                            <?php echo $data['tlp']; ?>
+                            <?php echo $data['phone']; ?>
                         </td>
 
                         <td>
-                            <a style="color:white" href="#pemiluEmployeeModal" class="btn btn-success permissions" data-toggle="modal"><span>Permissions</span></a>				
+
+                        <?php 
+                            if ($data['perizinan_vote'] == 'ya') {?>
+                              <span>Done</span>	
+                            <?php
+                            } else {?>
+                              <a style="color:white" href="#" class="btn btn-success permissions" data-toggle="modal"><span>Permissions</span></a>			
+                        <?php 
+                          
+                        }  
+                        ?>
                         </td>
                       </tr>
 
@@ -242,117 +202,17 @@ include "../../proses/koneksi_db.php";
                     ?>
 				</tbody>
 			</table>
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>1</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item  active"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div>
 		</div>
 	</div>        
 </div>
-<!-- Edit Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
-				<div class="modal-header">						
-					<h4 class="modal-title">Add New User</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<div class="form-group">
-						<label>Name</label>
-						<input type="text" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Email</label>
-						<input type="email" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Address</label>
-						<textarea class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" required>
-					</div>					
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="Add">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-<!-- Edit Modal HTML -->
-<div id="editEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
-				<div class="modal-header">						
-					<h4 class="modal-title">Edit Employee</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<div class="form-group">
-						<label>Name</label>
-						<input type="text" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Email</label>
-						<input type="email" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Address</label>
-						<textarea class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" required>
-					</div>					
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-info" value="Save">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-<!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
-				<div class="modal-header">						
-					<h4 class="modal-title">Delete Employee</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<p>Are you sure you want to delete these Records?</p>
-					<p class="text-warning"><small>This action cannot be undone.</small></p>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger" value="Delete">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
 
 <div id="pemiluEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
-			<form>
+			<form action="proses/profile_proses.php" method="POST">
+        <input type="hidden" name="nim_target" id="nim_target" value="#nim_target">	
+        <input type="hidden" name="email_target" id="email_target" value="#email_target">	
+        <input type="hidden" name="nama_target" id="nama_target" value="#nama_target">	
 				<div class="modal-header">						
 					<h4 class="modal-title">Permission Pemilu</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -363,13 +223,17 @@ include "../../proses/koneksi_db.php";
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-info" value="Add">
+					<input type="submit" class="btn btn-success" name="addperizinan" value="Izinkan">
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
   </section>
+
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script> -->
 
 
 
@@ -388,5 +252,54 @@ include "../../proses/koneksi_db.php";
     sidebar.classList.toggle("close");
   });
   </script>
+
+<script>
+        $(document).ready(function () {
+
+            $('.permissions').on('click', function () {
+
+                $('#pemiluEmployeeModal').modal('show');
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#nim_target').val(data[1]);
+                $('#email_target').val(data[2]);
+                $('#nama_target').val(data[3]);
+                // $('#stok').val(data[3]);
+                // $('#filter').val(data[4]);
+                // $('#image').val(data[5]);
+            });
+        });
+    </script>
+
+<script>
+        $(document).ready(function () {
+          $('#users').DataTable({
+            "columns": [
+                   {"data": "No"},
+                   {"data": "NIM", orderable: false},
+                   {"data": "Email", orderable: false},
+                   {"data": "Nama"},
+                   {"data": "Jenis Kelamin", orderable: false},
+                   {"data": "Status", orderable: false},
+                   {"data": "Program Studi"},
+                   {"data": "Telepon" , orderable: false},
+                   {"data": "Voting" , orderable: false}
+                  ],
+                  aoColumnDefs: [
+                    {
+                       bSortable: false,
+                       aTargets: [ -1 ]
+                    }
+                 ]
+          });
+        });
+</script>
 </body>
 </html>

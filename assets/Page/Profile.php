@@ -4,6 +4,19 @@ if(!isset($_SESSION["session"])){
 	header("location:login.php");
 }
 
+if (isset($_POST["logout"])) {
+  try {
+    // Menghapus semua session
+    session_unset();
+    // Menghancurkan session
+    session_destroy();
+
+    header("location:../../index.php");
+
+  } catch (Exception $e) {
+      echo "Gagal LogOut";
+  }
+}
 
 include "../proses/koneksi_db.php";
 
@@ -16,7 +29,7 @@ include "../proses/koneksi_db.php";
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Ninestars Bootstrap Template - Index</title>
+  <title>Profile Users</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -43,21 +56,10 @@ include "../proses/koneksi_db.php";
   <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
   
-
-  
-
   <!-- Template Main CSS File -->
   <link href="../css/pemilu.css" rel="stylesheet">
   <link href="../css/profile.css" rel="stylesheet">
-  <link href="../css/admin.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Ninestars
-  * Updated: Mar 10 2023 with Bootstrap v5.2.3
-  * Template URL: https://bootstrapmade.com/ninestars-free-bootstrap-3-theme-for-creative/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -75,36 +77,26 @@ include "../proses/koneksi_db.php";
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto" href="../../index.php">Home</a></li>
-          <li><a class="nav-link scrollto" href=" ">Informasi</a></li>
-          <li><a class="nav-link scrollto" href=" ">Kabinet</a></li>
-          <li><a class="nav-link scrollto" href=" ">Peminjaman</a></li>
-          <li><a class="nav-link scrollto active" href=" ">Pemilu</a></li>
-          <li class="dropdown"><a href="#"><span>About</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
+          <li><a class="nav-link scrollto" href="Informasi.php">Informasi</a></li>
+          <li><a class="nav-link scrollto" href="kabinet.php">Kabinet</a></li>
+          <li><a class="nav-link scrollto" href="Peminjaman.php">Peminjaman</a></li>
+          <li><a class="nav-link scrollto " href="Pemilu.php">Pemilu</a></li>
+          <li><a class="nav-link scrollto " href="About.php">About</a></li>
+
           <?php
-              if (isset($_SESSION['session'])) {
-                // Session login aktif, tampilkan tombol profile
-                echo '<li><a class="getstarted scrollto" id="login" href="#about">Profile</a></li>';
-            } else {
+          if (isset($_SESSION['session'])) {
+              if($_SESSION["session_admin"]== true){
+                echo '<li><a class="getstarted scrollto" id="login" href="tabel\dashboard.php">Admin</a></li>';
+              }else{
+              echo '<li><a class="getstarted scrollto" id="login" href="Profile.php">Profile</a></li>';
+              }
+          }  
+            else {
                 // Tidak ada session login aktif, tampilkan tombol login
-                echo '<li><a class="getstarted scrollto" id="login" href="assets/page/Login.php">Get Started</a></li>';
+                echo '<li><a class="getstarted scrollto" id="login" href="Login.php">Get Started</a></li>';
             }
           ?>
+
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -125,7 +117,7 @@ include "../proses/koneksi_db.php";
                     $query2 = mysqli_query($koneksi, "SELECT * FROM tbl_profile WHERE nim='$nim_target'");
                     while($data = mysqli_fetch_array($query2)) { ?>
                     
-                    <img src="../Image/profile/<?php echo $data['image'];?>" alt="Profile" class="rounded-circle">
+                    <img style="width:120px;height: 120px; object-fit: cover;"src="../Image/profile/<?php echo $data['image'];?>" alt="Profile" class="rounded-circle shadow-4-strong img-fluid img-thumbnail">
 
                     <h2>
                       <?php echo $data['first_name'] . " " . $data['last_name']; ?>
@@ -323,7 +315,7 @@ include "../proses/koneksi_db.php";
                                 <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                                 <div class="col-md-8 col-lg-9">
                                     <div class="form-group">
-                                      <input type="file" name="image" required>
+                                      <input type="file" name="image" value="<?php echo $data['image']; ?>">
                                     </div>
                                 </div>
                               </div>
@@ -338,9 +330,9 @@ include "../proses/koneksi_db.php";
                           <div class="tab-pane fade pt-3" id="profile-settings">
 
                             <!-- Settings Form -->
-                            <form>
+                            <form action=" " method="POST" >
 
-                              <div class="row mb-3">
+                              <!-- <div class="row mb-3">
                                 <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
                                 <div class="col-md-8 col-lg-9">
                                   <div class="form-check">
@@ -368,10 +360,10 @@ include "../proses/koneksi_db.php";
                                     </label>
                                   </div>
                                 </div>
-                              </div>
+                              </div> -->
 
-                              <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                              <div class="text-left">
+                                <button type="submit" name="logout" class="btn btn-danger">Log Out</button>
                               </div>
                             </form><!-- End settings Form -->
 
@@ -493,10 +485,13 @@ include "../proses/koneksi_db.php";
                     <?php
                     }
 
-                    $query2 = mysqli_query($koneksi, "SELECT * FROM tbl_antrianpeminjaman WHERE nim_peminjam='$nim_target' AND status_peminjaman='Belum Selesai'");
+                    $query2 = mysqli_query($koneksi, "SELECT * FROM tbl_antrianpeminjaman WHERE nim_peminjam='$nim_target' AND status_peminjaman='Dalam Antrian'");
                     while($data = mysqli_fetch_array($query2)) { ?>
           
                       <tr>
+                        <td hidden>
+                            <?php echo $data['kode_pinjam']; ?>
+                        </td>
                         <td>
                             <?php echo $i++; ?>
                         </td>
@@ -523,8 +518,48 @@ include "../proses/koneksi_db.php";
                         </td>
 
                         <td>
-                            <a href="#" type="button" class="edit antrianbtn" data-toggle="modal"><i class='bx bx-add-to-queue' style="color:#6495ED;" data-toggle="tooltip" title="Ajukan Antrial"></i></a>   
-                            <a href="#" type="button" class="delete deletebtn" data-toggle="modal"><i class='bx bx-folder-minus' data-toggle="tooltip" title="Cancel"></i></a>
+                            <a href="#" type="button" class="delete deletebtn" data-bs-toggle="modal" data-toggle="modal"><i class='bx bx-folder-minus' data-toggle="tooltip" data-bs-toggle="tooltip" title="Cancel"></i></a>
+                      </td>
+                      </tr>
+
+                    <?php
+                    }
+
+                    $query2 = mysqli_query($koneksi, "SELECT * FROM tbl_antrianpeminjaman WHERE nim_peminjam='$nim_target' AND status_peminjaman='Belum Selesai'");
+                    while($data = mysqli_fetch_array($query2)) { ?>
+          
+                      <tr>
+                        <td hidden>
+                            <?php echo $data['kode_pinjam']; ?>
+                        </td>
+                        <td>
+                            <?php echo $i++; ?>
+                        </td>
+                        <td>
+                            <?php echo null ?>
+                        </td>
+                        <td>
+                            <?php echo $data['kode_barang']; ?>
+                        </td>
+                        <td>
+                            <?php echo $data['jumlah']; ?>
+                        </td>
+                        <td>
+                            <?php echo $data['tgl_pinjam']; ?>
+                        </td>
+                        <td>
+                            <?php echo $data['keterangan']; ?>
+                        </td>
+                        <td>
+                            <?php echo $data['time_remairing']; ?>
+                        </td>
+                        <td>
+                            <?php echo $data['status_peminjaman']; ?>
+                        </td>
+
+                        <td>
+                            <a href="#" type="button" class="edit antrianbtn" data-bs-toggle="modal" data-toggle="modal"><i class='bx bx-add-to-queue' style="color:#6495ED;" data-bs-toggle="tooltip" data-toggle="tooltip" title="Ajukan Antrial"></i></a>   
+                            <a href="#" type="button" class="delete deletebtn" data-bs-toggle="modal" data-toggle="modal"><i class='bx bx-folder-minus' data-toggle="tooltip" data-bs-toggle="tooltip" title="Delete"></i></a>
                       </td>
                       </tr>
 
@@ -557,19 +592,42 @@ include "../proses/koneksi_db.php";
 <div id="antrianmodal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="proses/inventory_proses.php" method="POST">
-        <input type="hidden" name="delete_kode" id="delete_kode" value="#delete_kode">			
+			<form action="../proses/profile_proses.php" method="POST">
+        <input type="hidden" name="target_kode" id="target_kode" value="#target_kode">			
 				<div class="modal-header">						
 					<h4 class="modal-title">Masukan Dalam Antrian</h4>
-					<i type="button" data-bs-dismiss="modal" aria-hidden="true" class='bx bxs-x-circle'></i>
+					<i style="font-size:25px; font-weight: bold;"type="button" data-bs-dismiss="modal" aria-hidden="true" class="close">&times;</i>
 				</div>
 				<div class="modal-body">					
-					<p>Are you sure you want to delete these Records?</p>
+					<p>Apakah anda ingin mengejukan antrian?</p>
 					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>
 				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger" name="deletebarang" value="Delete">
+					<input type="button" class="btn btn-default" data-bs-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-success" name="antrianpinjam" value="Add to Queue">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+  </div>
+
+  <div id="deleteantrian" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action="../proses/profile_proses.php" method="POST">
+        <input type="hidden" name="delete_kode" id="delete_kode" value="#delete_kode">			
+				<div class="modal-header">						
+					<h4 class="modal-title">Cancel Antrian Barang</h4>
+					<i style="font-size:25px; font-weight: bold;"type="button" data-bs-dismiss="modal" aria-hidden="true" class="close">&times;</i>
+				</div>
+				<div class="modal-body">					
+					<p>Apakah anda ingin mengcancel antrian barang?</p>
+					<p class="text-warning"><small>This action cannot be undone.</small></p>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-bs-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-danger" name="deleteantrian" value="Delete">
 				</div>
 			</form>
 		</div>
@@ -579,89 +637,59 @@ include "../proses/koneksi_db.php";
 
 </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
+ <!-- ======= Footer ======= -->
+<footer style="padding:0;" id="footer">
 
-    <div class="footer-newsletter">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
-            <h4>Follow Us</h4>
-            <p>Dapatkan Berbagai Info Terupdate tentang HIMA RPL</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-          </div>
+<div class="footer-top">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-3 col-md-6 footer-contact">
+        <h3>HIMARPL</h3>
+        <p>
+          Jl. Pendidikan No.15, Cibiru Wetan<br>
+          Kec. Cileunyi, Kabupaten Bandung<br>
+          Jawa Barat 40625 <br><br>
+          <strong>Phone:</strong> +62 851 5663 8465<br>
+          <strong>Email:</strong> himarpl@gmail.com<br>
+        </p>
+      </div>
+
+      <div class="col-lg-3 col-md-6 footer-links">
+        <h4>Useful Links</h4>
+        <ul>
+          <li><i class="bx bx-chevron-right active"></i> <a href="#">Home</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="assets/Page/Informasi.php">Informasi</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="assets/Page/Kabinet.php">Kabinet</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="assets/Page/About.php">About</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="assets/Page/Pemilu.php">Pemilu</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 footer-links">
+        <h4>Our Services</h4>
+        <ul>
+          <li><i class="bx bx-chevron-right"></i> <a >Advokasi</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a >Bantuan</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 footer-links">
+        <h4>Our Social Networks</h4>
+        <p>Follow Berbagai Informasi Lainnya di Platform Lainnya</p>
+        <div class="social-links mt-3">
+          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
         </div>
       </div>
+
     </div>
-
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>Ninestars</h3>
-            <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br><br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Social Networks</h4>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
-            <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="container py-4">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Ninestars</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/ninestars-free-bootstrap-3-theme-for-creative/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
+  </div>
+</div>
+</footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -677,7 +705,7 @@ include "../proses/koneksi_db.php";
   <!-- Template Main JS File -->
   <script src="../js/main.js"></script>
 
-  <script>
+<script>
         $(document).ready(function () {
 
             $('.antrianbtn').on('click', function () {
@@ -692,32 +720,7 @@ include "../proses/koneksi_db.php";
 
                 console.log(data);
 
-                $('#delete_kode').val(data[1]);
-            });
-        });
-    </script>
-
-<script>
-        $(document).ready(function () {
-
-            $('.editbtn').on('click', function () {
-
-                $('#editEmployeeModal').modal('show');
-
-                $tr = $(this).closest('tr');
-
-                var data = $tr.children("td").map(function () {
-                    return $(this).text();
-                }).get();
-
-                console.log(data);
-
-                $('#update_kode').val(data[1]);
-                // $('#nama_barang').val(data[1]);
-                // $('#deskripsi').val(data[2]);
-                // $('#stok').val(data[3]);
-                // $('#filter').val(data[4]);
-                // $('#image').val(data[5]);
+                $('#target_kode').val(data[0]);
             });
         });
     </script>
@@ -727,7 +730,7 @@ include "../proses/koneksi_db.php";
 
             $('.deletebtn').on('click', function () {
 
-                $('#deleteEmployeeModal').modal('show');
+                $('#deleteantrian').modal('show');
 
                 $tr = $(this).closest('tr');
 
@@ -737,7 +740,7 @@ include "../proses/koneksi_db.php";
 
                 console.log(data);
 
-                $('#delete_kode').val(data[1]);
+                $('#delete_kode').val(data[0]);
             });
         });
     </script>

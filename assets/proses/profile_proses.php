@@ -49,7 +49,7 @@ if (isset($_POST["editprofile"])) {
     // echo $instagram . "<br>";
     // echo $image;
     
-
+    echo $phone;
 
     $query_image = "SELECT image from tbl_profile WHERE nim = '$nim_target';";
 
@@ -142,6 +142,45 @@ function upload() {
   return $namaFileBaru;
 }
 
+echo "help";
 
+if(isset($_POST["antrianpinjam"])) {
+  
+  try{
+    $target_kode = $_POST['target_kode'];
+    $target = trim($target_kode);
+    
+    $query = "UPDATE tbl_antrianpeminjaman SET status_peminjaman='Dalam Antrian', tgl_pinjam=DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i') WHERE kode_pinjam='$target';";
+    $result = mysqli_query($koneksi, $query);
+
+    echo "berhasil";
+    header("location:../Page/Profile.php");
+
+  }
+  catch(Exception $e){
+    echo "gagal";
+  }
+}
+
+
+if(isset($_POST["deleteantrian"])) {
+  
+  try{
+    $target_kode = $_POST['delete_kode'];
+    $target = trim($target_kode);
+    
+    $query = "UPDATE tbl_antrianpeminjaman SET status_peminjaman='Belum Selesai' WHERE kode_pinjam='$target';";
+    $result = mysqli_query($koneksi, $query);
+
+    $query2 = "DELETE FROM tbl_antrianpeminjaman WHERE kode_pinjam='$target';";
+    $result = mysqli_query($koneksi, $query2);
+
+    echo $target;
+    header("location:../Page/Profile.php");
+  }
+  catch(Exception $e){
+    echo "gagal";
+  }
+}
 
 ?>

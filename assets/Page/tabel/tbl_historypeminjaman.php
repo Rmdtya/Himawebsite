@@ -1,42 +1,25 @@
-<!-- <?php
+<?php
 session_start();
 if(!isset($_SESSION["session"])){
-	header("location:../login.php");
+	header("location:../Login.php");
+}
+
+if($_SESSION["session_admin"] == true){
+}else{
+	header("location:../../../index.php");
 }
 
 include "../../proses/koneksi_db.php";
 
-// if (isset($_POST["addbarang"])) {
-
-//   try {
-//        //mengambil data
-//       $kode_barang = $_POST['kode_barang'];
-//       $nama_barang = $_POST['nama_barang'];
-//       $deskripsi = $_POST['deskripsi'];
-//       $stok = $_POST['stok'];
-//       $filter = $_POST['filter'];
-//       $image = $_POST['image'];
-
-//       //query insert data
-//       $query = "CALL psd_addbarang('$kode_barang', '$nama_barang', '$deskripsi', '$stok', '$filter', '$image');";
-//       mysqli_query($koneksi, $query);
-//       echo "oi";
-
-//   } catch (Exception $e) {
-//       echo "Barang Sudah Terdaftar";
-//   }
-// }
-
-?> -->
+?>
 
 
 
 <!DOCTYPE html>
-<!-- Coding by CodingNepal | www.codingnepalweb.com -->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <title> Drop Down Sidebar Menu | CodingLab </title>
+    <title>Tabel History Peminjaman</title>
     <link rel="stylesheet" href="../../css/admin.css">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
@@ -48,17 +31,21 @@ include "../../proses/koneksi_db.php";
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <!-- Boxiocns CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+
+</head>
 <body>
-  <div class="sidebar close">
+<div class="sidebar close">
     <div class="logo-details">
-      <i class='bx bxl-c-plus-plus'> </i>
+      <i class='bx bxs-data'></i>
       <span class="logo_name">HIMA RPL</span>
     </div>
     <ul class="nav-links">
       <li>
-        <a href="#">
+        <a href="dashboard.php">
           <i class='bx bx-grid-alt' ></i>
           <span class="link_name">Dashboard</span>
         </a>
@@ -75,14 +62,12 @@ include "../../proses/koneksi_db.php";
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
         <ul class="sub-menu">
-        <li><a class="link_name" href="#">Table</a></li>
+          <li><a class="link_name" href="#">Table</a></li>
           <li><a href="tbl_user.php">User Account</a></li>
           <li><a href="tbl_inventory.php">Inventory</a></li>
-          <li><a href="tbl_inventorycontrol.php">Inventory Control</a></li>
           <li><a href="tbl_peminjaman.php">Peminjaman</a></li>
           <li><a href="tbl_antrianpeminjaman.php">Antrian Peminjaman</a></li>
           <li><a href="tbl_historypeminjaman.php">History Peminjaman</a></li>
-          <li><a href="tbl_pemilih.php">List Pemilih</a></li>
           <li><a href="tbl_pemilu.php">Pemilu</a></li>
           <li><a href="tbl_informasi.php">Informasi</a></li>
           <li><a href="tbl_subscriber.php">Subscriber</a></li>
@@ -102,71 +87,19 @@ include "../../proses/koneksi_db.php";
           <li><a href="../informasi.php">Informasi</a></li>
           <li><a href="../kabinet.php">Kabinet</a></li>
           <li><a href="../Peminjaman.php">Peminjaman</a></li>
-          <li><a href="../Pemilu">Pemilu</a></li>
+          <li><a href="../Pemilu.php">Pemilu</a></li>
           <li><a href="../About.php">About</a></li>
         </ul>
       </li>
       <li>
-        <a href="#">
+        <a href="tbl_suara.php">
           <i class='bx bx-pie-chart-alt-2' ></i>
-          <span class="link_name">Berita</span>
+          <span class="link_name">Pemilu</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Berita</a></li>
+          <li><a class="link_name" href="tbl_suara.php">Pemilu</a></li>
         </ul>
       </li>
-      <!-- <li>
-        <a href="#">
-          <i class='bx bx-line-chart' ></i>
-          <span class="link_name">Chart</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Chart</a></li>
-        </ul>
-      </li>
-      <li>
-        <div class="iocn-link">
-          <a href="#">
-            <i class='bx bx-plug' ></i>
-            <span class="link_name">Plugins</span>
-          </a>
-          <i class='bx bxs-chevron-down arrow' ></i>
-        </div>
-        <ul class="sub-menu">
-          <li><a class="link_name" href="#">Plugins</a></li>
-          <li><a href="#">UI Face</a></li>
-          <li><a href="#">Pigments</a></li>
-          <li><a href="#">Box Icons</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-compass' ></i>
-          <span class="link_name">Explore</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Explore</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-history'></i>
-          <span class="link_name">History</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">History</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-cog' ></i>
-          <span class="link_name">Setting</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Setting</a></li>
-        </ul>
-      </li>
-      <li> -->
     <div class="profile-details">
       <div class="profile-content">
         <img src="../../Image/Ramaditya.png" alt="profileImg">
@@ -175,12 +108,12 @@ include "../../proses/koneksi_db.php";
         <div class="profile_name">Synthesis Thirty</div>
         <div class="job">Admistrator</div>
       </div>
-      <i class='bx bx-log-out' ></i>
+        <i style="opacity:0;"class='bx bx-log-out' ></i>
+        <i style="opacity:0;" class='bx bx-log-out' ></i>
     </div>
   </li>
 </ul>
-  </div>
-
+</div>
 
   <section class="home-section">
     <div class="home-content">
@@ -194,16 +127,17 @@ include "../../proses/koneksi_db.php";
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>HIMA Inventory</b></h2>
+						<h2>Manage <b>History Peminjaman Barang</b></h2>
 					</div>
 					
 				</div>
 			</div>
-			<table class="table table-striped table-hover">
+			<table id="history" class="table table-striped table-hover">
 				<thead>
 					<tr>
             <th>No</th>
-						<th>Kode Peminjaman</th>
+						<th>Kode</th>
+            <th>NIM</th>
 						<th>Kode Barang</th>
 						<th>Jumlah</th>
 						<th>Tanggal Peminjaman</th>
@@ -211,21 +145,23 @@ include "../../proses/koneksi_db.php";
             <th>Keterangan</th>
             <th>Lama Pinjam</th>
             <th>Status</th>
-            <th>Aksi</th>
 					</tr>
 				</thead>
 				<tbody>
           <?php
                     $i = 1;
-                    $query2 = mysqli_query($koneksi, "SELECT * FROM tbl_peminjaman WHERE status_peminjaman='Selesai'");
+                    $query2 = mysqli_query($koneksi, "SELECT * FROM tbl_historypinjam WHERE status_peminjaman='Selesai'");
                     while($data = mysqli_fetch_array($query2)) { ?>
           
                       <tr>
                         <td>
-                            <?php echo $i++; ?>
+                            <?php echo $i++ . "."; ?>
                         </td>
                         <td>
                             <?php echo $data['kode_pinjam']; ?>
+                        </td>
+                        <td>
+                            <?php echo $data['nim_peminjam']; ?>
                         </td>
                         <td>
                             <?php echo $data['kode_barang']; ?>
@@ -249,9 +185,6 @@ include "../../proses/koneksi_db.php";
                             <?php echo $data['status_peminjaman']; ?>
                         </td>
 
-                        <td>
-						                <a style="color:white" href="#submitBarang" class="btn btn-success btnsubmitbarang" data-toggle="modal"><span>Selesai</span></a>				
-                      </td>
                       </tr>
 
                     <?php
@@ -259,131 +192,13 @@ include "../../proses/koneksi_db.php";
                     ?>
 				</tbody>
 			</table>
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>1</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item  active"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div>
 		</div>
 	</div>        
 </div>
-<!-- add Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form action="proses/inventory_proses.php" method="POST">
-				<div class="modal-header">						
-					<h4 class="modal-title">Add New Barang</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<div class="form-group">
-						<label>Kode Barang</label>
-						<input type="text" name="kode_barang" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Nama Barang</label>
-						<input type="text" name="nama_barang" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Deskripsi</label>
-						<textarea class="form-control" name="deskripsi" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Stok</label>
-						<input type="number" name="stok" class="form-control" required>
-					</div>		
-          <div class="form-group">
-						<label>Image Name</label>
-						<input type="text" name="image" class="form-control" required>
-					</div>
-          <div class="form-group">
-						<td> <input type="radio" name="filter" value="app"> Elektronik <input type="radio" name="filter" value="app"> Alat-alat <input type="radio" name="filter" value="web"> Lain-lain</td>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" name="addbarang" value="Add">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
 
-<!-- Edit Modal HTML -->
-<div id="editEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-    <form action="proses/inventory_proses.php" method="POST">
-				<div class="modal-header">						
-					<h4 class="modal-title">Edit Barang</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">
-          <input type="hidden" name="update_kode" id="update_kode" value="#update_kode">					
-					<div class="form-group">
-						<label>Kode Barang</label>
-						<input type="text" name="kode_barang" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Nama Barang</label>
-						<input type="text" name="nama_barang" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Deskripsi</label>
-						<textarea class="form-control" name="deskripsi" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Stok</label>
-						<input type="number" name="stok" class="form-control" required>
-					</div>		
-          <div class="form-group">
-						<label>Image Name</label>
-						<input type="text" name="image" class="form-control" required>
-					</div>
-          <div class="form-group">
-						<td> <input type="radio" name="filter" value="app"> Elektronik <input class="spasi-radio" type="radio" name="filter" value="app"> Alat <input class="spasi-radio" type="radio" name="filter" value="web"> Lain -Lain</td>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" name="editbarang" value="edit">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-<!-- Delete Modal HTML -->
-<div id="submitBarang" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form action="proses/tbl_proses.php" method="POST">
-        <input type="hidden" name="pinjam_kode" id="pinjam_kode" value="#pinjam_kode">			
-				<div class="modal-header">						
-					<h4 class="modal-title">Selesaikan Peminjaman</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<p>Apakah barang yang dipinjam sudah diterima kembali?</p>
-					<p class="text-warning"><small>This action cannot be undone.</small></p>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" name="selesaikanpinjam" value="Submit">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-  </section>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
   <script>
     let arrow = document.querySelectorAll(".arrow");
@@ -445,7 +260,29 @@ include "../../proses/koneksi_db.php";
                 $('#delete_kode').val(data[1]);
             });
         });
-    </script>
 
+        $(document).ready(function () {
+          $('#history').DataTable({
+            "columns": [
+                   {"data": "No"},
+                   {"data": "Kode"},
+                   {"data": "Nim"},
+                   {"data": "Kode Barang"},
+                   {"data": "Jumlah"},
+                   {"data": "Tanggal Pinjam"},
+                   {"data": "Tanggal Pengembalian"},
+                   {"data": "Keterangan" , orderable: false},
+                   {"data": "Lama Pinjam"},
+                   {"data": "Status" , orderable: false}
+                  ],
+                  aoColumnDefs: [
+                    {
+                       bSortable: false,
+                       aTargets: [ -1 ]
+                    }
+                 ]
+          });
+        });
+    </script>
 </body>
 </html>

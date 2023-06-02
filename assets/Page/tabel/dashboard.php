@@ -1,38 +1,21 @@
-<!-- <?php
+<?php
 session_start();
 if(!isset($_SESSION["session"])){
-	header("location:../login.php");
+	header("location:../Login.php");
+}
+
+if($_SESSION["session_admin"] == true){
+
+}else{
+	header("location:../../../index.php");
 }
 
 include "../../proses/koneksi_db.php";
-
-// if (isset($_POST["addbarang"])) {
-
-//   try {
-//        //mengambil data
-//       $kode_barang = $_POST['kode_barang'];
-//       $nama_barang = $_POST['nama_barang'];
-//       $deskripsi = $_POST['deskripsi'];
-//       $stok = $_POST['stok'];
-//       $filter = $_POST['filter'];
-//       $image = $_POST['image'];
-
-//       //query insert data
-//       $query = "CALL psd_addbarang('$kode_barang', '$nama_barang', '$deskripsi', '$stok', '$filter', '$image');";
-//       mysqli_query($koneksi, $query);
-//       echo "oi";
-
-//   } catch (Exception $e) {
-//       echo "Barang Sudah Terdaftar";
-//   }
-// }
-
-?> -->
+?>
 
 
 
 <!DOCTYPE html>
-<!-- Coding by CodingNepal | www.codingnepalweb.com -->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
@@ -52,138 +35,87 @@ include "../../proses/koneksi_db.php";
    </head>
 <body>
   <div class="sidebar close">
-    <div class="logo-details">
-      <i class='bx bxs-data'></i>
-      <span class="logo_name">HIMA RPL</span>
-    </div>
-    <ul class="nav-links">
-      <li>
-        <a href="#">
-          <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">Dashboard</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Table</a></li>
-        </ul>
-      </li>
-      <li>
-        <div class="iocn-link">
-          <a href="#">
-            <i class='bx bx-collection' ></i>
-            <span class="link_name">Table</span>
-          </a>
-          <i class='bx bxs-chevron-down arrow' ></i>
-        </div>
-        <ul class="sub-menu">
-          <li><a class="link_name" href="#">Table</a></li>
-          <li><a href="tbl_user.php">User Account</a></li>
-          <li><a href="tbl_inventory.php">Inventory</a></li>
-          <li><a href="tbl_inventorycontrol.php">Inventory Control</a></li>
-          <li><a href="tbl_peminjaman.php">Peminjaman</a></li>
-          <li><a href="tbl_pemilih.php">List Pemilih</a></li>
-          <li><a href="tbl_pemilu.php">Pemilu</a></li>
-          <li><a href="tbl_informasi.php">Informasi</a></li>
-          <li><a href="tbl_subscriber.php">Subscriber</a></li>
-        </ul>
-      </li>
-      <li>
-        <div class="iocn-link">
-          <a href="#">
-            <i class='bx bx-book-alt' ></i>
-            <span class="link_name">Page</span>
-          </a>
-          <i class='bx bxs-chevron-down arrow' ></i>
-        </div>
-        <ul class="sub-menu">
-          <li><a class="link_name" href="#">Page</a></li>
-          <li><a href="../../../index.php">Home</a></li>
-          <li><a href="../informasi.php">Informasi</a></li>
-          <li><a href="../kabinet.php">Kabinet</a></li>
-          <li><a href="../Peminjaman.php">Peminjaman</a></li>
-          <li><a href="../Pemilu">Pemilu</a></li>
-          <li><a href="../About.php">About</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-pie-chart-alt-2' ></i>
-          <span class="link_name">Berita</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Berita</a></li>
-        </ul>
-      </li>
-      <!-- <li>
-        <a href="#">
-          <i class='bx bx-line-chart' ></i>
-          <span class="link_name">Chart</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Chart</a></li>
-        </ul>
-      </li>
-      <li>
-        <div class="iocn-link">
-          <a href="#">
-            <i class='bx bx-plug' ></i>
-            <span class="link_name">Plugins</span>
-          </a>
-          <i class='bx bxs-chevron-down arrow' ></i>
-        </div>
-        <ul class="sub-menu">
-          <li><a class="link_name" href="#">Plugins</a></li>
-          <li><a href="#">UI Face</a></li>
-          <li><a href="#">Pigments</a></li>
-          <li><a href="#">Box Icons</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-compass' ></i>
-          <span class="link_name">Explore</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Explore</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-history'></i>
-          <span class="link_name">History</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">History</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-cog' ></i>
-          <span class="link_name">Setting</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Setting</a></li>
-        </ul>
-      </li>
-      <li> -->
-    <div class="profile-details">
-      <div class="profile-content">
-        <img src="../../Image/Ramaditya.png" alt="profileImg">
+      <div class="logo-details">
+        <i class='bx bxs-data'></i>
+        <span class="logo_name">HIMA RPL</span>
       </div>
-      <div class="name-job">
-        <div class="profile_name">Synthesis Thirty</div>
-        <div class="job">Admistrator</div>
-      </div>
+      <ul class="nav-links">
+        <li>
+          <a href="dashboard.php">
+            <i class='bx bx-grid-alt' ></i>
+            <span class="link_name">Dashboard</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" href="#">Table</a></li>
+          </ul>
+        </li>
+        <li>
+          <div class="iocn-link">
+            <a href="#">
+              <i class='bx bx-collection' ></i>
+              <span class="link_name">Table</span>
+            </a>
+            <i class='bx bxs-chevron-down arrow' ></i>
+          </div>
+          <ul class="sub-menu">
+            <li><a class="link_name" href="#">Table</a></li>
+            <li><a href="tbl_user.php">User Account</a></li>
+            <li><a href="tbl_inventory.php">Inventory</a></li>
+            <li><a href="tbl_peminjaman.php">Peminjaman</a></li>
+            <li><a href="tbl_antrianpeminjaman.php">Antrian Peminjaman</a></li>
+            <li><a href="tbl_historypeminjaman.php">History Peminjaman</a></li>
+            <li><a href="tbl_pemilu.php">Pemilu</a></li>
+            <li><a href="tbl_informasi.php">Informasi</a></li>
+            <li><a href="tbl_subscriber.php">Subscriber</a></li>
+          </ul>
+        </li>
+        <li>
+          <div class="iocn-link">
+            <a href="#">
+              <i class='bx bx-book-alt' ></i>
+              <span class="link_name">Page</span>
+            </a>
+            <i class='bx bxs-chevron-down arrow' ></i>
+          </div>
+          <ul class="sub-menu">
+            <li><a class="link_name" href="#">Page</a></li>
+            <li><a href="../../../index.php">Home</a></li>
+            <li><a href="../informasi.php">Informasi</a></li>
+            <li><a href="../kabinet.php">Kabinet</a></li>
+            <li><a href="../Peminjaman.php">Peminjaman</a></li>
+            <li><a href="../Pemilu.php">Pemilu</a></li>
+            <li><a href="../About.php">About</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="tbl_suara.php">
+            <i class='bx bx-pie-chart-alt-2' ></i>
+            <span class="link_name">Pemilu</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" href="tbl_suara.php">Pemilu</a></li>
+          </ul>
+        </li>
+      <div class="profile-details">
+        <div class="profile-content">
+          <img src="../../Image/Ramaditya.png" alt="profileImg">
+        </div>
+        <div class="name-job">
+          <div class="profile_name">Synthesis Thirty</div>
+          <div class="job">Admistrator</div>
+        </div>
       <i class='bx bx-log-out' ></i>
-    </div>
-  </li>
-</ul>
+      <i class='bx bx-log-out' ></i>
+      </div>
+    </li>
+  </ul>
   </div>
 
 
   <section class="home-section">
     <div class="home-content">
       <i class='bx bx-menu' ></i>
-      <span class="text">Database Information</span>
+      <span class="text">Dashboard</span>
     </div>
 
     <div class="container-xxl">
@@ -192,83 +124,200 @@ include "../../proses/koneksi_db.php";
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>HIMA Inventory</b></h2>
-					</div>
-					<div class="col-sm-6">
-            <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>	
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Barang</span></a>				
+						<h2>Info <b>Database HIMARPL</b></h2>
 					</div>
 				</div>
 			</div>
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-						</th>
-						<th>Kode Barang</th>
-						<th>Nama Barang</th>
+            <th>No</th>
+						<th>Nama Table</th>
 						<th>Deskripsi</th>
-						<th>Stok</th>
-            <th>Image</th>
-            <th>Aksi</th>
+						<th>Jumlah Field</th>
+						<th>Jumlah Data</th>
+						<th>Aksi</th>
 					</tr>
 				</thead>
 				<tbody>
-          <?php
-                    $query2 = mysqli_query($koneksi, "SELECT * FROM tbl_inventory");
-                    while($data = mysqli_fetch_array($query2)) { ?>
-          
-                      <tr>
-                        <td>
-                            <span class="custom-checkbox">
-                              <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                              <label for="checkbox1"></label>
-                            </span>
-                        </td>
+              <tr>
+                  <td>1</td>
+                  <td>Tabel User Account</td>
+                  <td>Mengelola Data Akun User</td>
+                  <td>14 Field</td>
+                  <td>
+                      <?php
+                         $total1 = "SELECT COUNT(*) as user_field FROM tbl_account;";
+                         $result_field1 = mysqli_query($koneksi, $total1);
+                           
+                         if ($result_field1) {
+                           $row1 = mysqli_fetch_assoc($result_field1);
+                           $totalRows1 = $row1['user_field'];
+                           echo $totalRows1;
+                       } else {
+                           echo "Error: " . mysqli_error($koneksi);
+                       }
+                      ?>
+                  </td>
+                  <td>No</td>
+                </tr>
 
-                        <td>
-                            <?php echo $data['kode_barang']; ?>
-                        </td>
-                        <td>
-                            <?php echo $data['nama_barang']; ?>
-                        </td>
-                        <td>
-                            <?php echo $data['deskripsi']; ?>
-                        </td>
-                        <td>
-                            <?php echo $data['stok']; ?>
-                        </td>
-                        <td>
-                            <?php echo $data['image']; ?>
-                        </td>
+                <tr>
+                  <td>2</td>
+                  <td>Tabel Inventory</td>
+                  <td>Mengelola Data Dari Barang - Barang Yang Tersedia</td>
+                  <td>6 Field</td>
+                  <td>
+                      <?php
+                         $total1 = "SELECT COUNT(*) as user_field FROM tbl_inventory;";
+                         $result_field1 = mysqli_query($koneksi, $total1);
+                           
+                         if ($result_field1) {
+                           $row1 = mysqli_fetch_assoc($result_field1);
+                           $totalRows1 = $row1['user_field'];
+                           echo $totalRows1;
+                       } else {
+                           echo "Error: " . mysqli_error($koneksi);
+                       }
+                      ?>
+                  </td>
+                  <td>Yes</td>
+                </tr>
 
-                        <td>
-                            <a href="#" type="button" class="edit editbtn" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>   
-                            <a href="#" type="button" class="delete deletebtn" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                          </td>
-                      </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Tabel Peminjaman</td>
+                  <td>Mengelola Data Peminjaman dan Proses ACC Return Barang</td>
+                  <td>9 Field</td>
+                  <td>
+                      <?php
+                         $total1 = "SELECT COUNT(*) as user_field FROM tbl_peminjaman;";
+                         $result_field1 = mysqli_query($koneksi, $total1);
+                           
+                         if ($result_field1) {
+                           $row1 = mysqli_fetch_assoc($result_field1);
+                           $totalRows1 = $row1['user_field'];
+                           echo $totalRows1;
+                       } else {
+                           echo "Error: " . mysqli_error($koneksi);
+                       }
+                      ?>
+                  </td>
+                  <td>Yes</td>
+                </tr>
 
-                    <?php
-                    }
-                    ?>
+                <tr>
+                  <td>4</td>
+                  <td>Tabel Antrian Peminjaman</td>
+                  <td>Mengelola Proses Antrian Dari Peminjaman Barang</td>
+                  <td>9 Field</td>
+                  <td>
+                      <?php
+                         $total1 = "SELECT COUNT(*) as user_field FROM tbl_antrianpeminjaman WHERE status_peminjaman='Dalam Antrian';";
+                         $result_field1 = mysqli_query($koneksi, $total1);
+                           
+                         if ($result_field1) {
+                           $row1 = mysqli_fetch_assoc($result_field1);
+                           $totalRows1 = $row1['user_field'];
+                           echo $totalRows1;
+                       } else {
+                           echo "Error: " . mysqli_error($koneksi);
+                       }
+                      ?>
+                  </td>
+                  <td>No</td>
+                </tr>
+
+                <tr>
+                  <td>5</td>
+                  <td>Tabel History Peminjaman</td>
+                  <td>Berisi Data dari History Barang Yang Telah Selesai</td>
+                  <td>9 Field</td>
+                  <td>
+                      <?php
+                         $total1 = "SELECT COUNT(*) as user_field FROM tbl_historypinjam WHERE status_peminjaman='Selesai';";
+                         $result_field1 = mysqli_query($koneksi, $total1);
+                           
+                         if ($result_field1) {
+                           $row1 = mysqli_fetch_assoc($result_field1);
+                           $totalRows1 = $row1['user_field'];
+                           echo $totalRows1;
+                       } else {
+                           echo "Error: " . mysqli_error($koneksi);
+                       }
+                      ?>
+                  </td>
+                  <td>No</td>
+                </tr>
+
+                <tr>
+                  <td>6</td>
+                  <td>Tabel User Vote</td>
+                  <td>Berisi Data Suara Dalam Pemilu Bagi Masing-masing User Yang Memiliki Perizinan Vote</td>
+                  <td>5 Field</td>
+                  <td>
+                      <?php
+                         $total1 = "SELECT COUNT(*) as user_field FROM tbl_pemilu;";
+                         $result_field1 = mysqli_query($koneksi, $total1);
+                           
+                         if ($result_field1) {
+                           $row1 = mysqli_fetch_assoc($result_field1);
+                           $totalRows1 = $row1['user_field'];
+                           echo $totalRows1;
+                       } else {
+                           echo "Error: " . mysqli_error($koneksi);
+                       }
+                      ?>
+                  </td>
+                  <td>No</td>
+                </tr>
+
+                <tr>
+                  <td>7</td>
+                  <td>Tabel Informasi</td>
+                  <td>Mengelola Informasi Dalam Website</td>
+                  <td>5 Field</td>
+                  <td>
+                      <?php
+                         $total1 = "SELECT COUNT(*) as user_field FROM tbl_pemilu;";
+                         $result_field1 = mysqli_query($koneksi, $total1);
+                           
+                         if ($result_field1) {
+                           $row1 = mysqli_fetch_assoc($result_field1);
+                           $totalRows1 = $row1['user_field'];
+                           echo $totalRows1;
+                       } else {
+                           echo "Error: " . mysqli_error($koneksi);
+                       }
+                      ?>
+                  </td>
+                  <td>Yes</td>
+                </tr>
+
+                <tr>
+                  <td>8</td>
+                  <td>Tabel Subscriber</td>
+                  <td>Berisi data Dari subscriber Website HIMARPL</td>
+                  <td>5 Field</td>
+                  <td>
+                      <?php
+                         $total1 = "SELECT COUNT(*) as user_field FROM tbl_subscribe;";
+                         $result_field1 = mysqli_query($koneksi, $total1);
+                           
+                         if ($result_field1) {
+                           $row1 = mysqli_fetch_assoc($result_field1);
+                           $totalRows1 = $row1['user_field'];
+                           echo $totalRows1;
+                       } else {
+                           echo "Error: " . mysqli_error($koneksi);
+                       }
+                      ?>
+                  </td>
+                  <td>No</td>
+                </tr>
+
 				</tbody>
 			</table>
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>1</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item  active"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div>
 		</div>
 	</div>        
 </div>
