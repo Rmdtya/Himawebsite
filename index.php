@@ -34,7 +34,7 @@ if (isset($_POST["subs"])) {
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Ninestars Bootstrap Template - Index</title>
+  <title>Home Page</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -69,8 +69,6 @@ if (isset($_POST["subs"])) {
 
       <div class="logo">
         <a class="logo me-auto" href="#"><img src="assets/Image/HimaLogo.png" alt="logo"></a>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
       <nav id="navbar" class="navbar">
@@ -112,7 +110,7 @@ if (isset($_POST["subs"])) {
         <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
           <h1>HIMA</h1>
           <h1>Rekayasa Perangkat Lunak</h1>
-          <h2>Hello World, </h2>
+          <h2>Hello World</h2>
           <P>Membangun kampus yang merdeka dan menjamin hak dan kebebasan seluruh Mahasiswa. 
             Mewadahi semua kegiatan mahasiswa dan mendukung penuh potensi diri masing-masing mahasiswa</P>
 
@@ -150,7 +148,7 @@ if (isset($_POST["subs"])) {
             <div class="icon-box">
               <div class="icon"><i class="bx bxl-dribbble"></i></div>
               <h4 class="title"><a href="">PDKT Dengan HIMA RPL</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate</p>
+              <p class="description">Kenali berbagai informasi mengenai Himpunan Mahaiswa Rekayasa Perangkat Lunak</p>
             </div>
           </div>
 
@@ -158,7 +156,7 @@ if (isset($_POST["subs"])) {
             <div class="icon-box">
               <div class="icon"><i class="bx bx-file"></i></div>
               <h4 class="title"><a href="">Temukan Informasi Sesuai Career Anda</a></h4>
-              <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla</p>
+              <p class="description">Akses informasi seputar fashion yang anda sukai</p>
             </div>
           </div>
 
@@ -166,7 +164,7 @@ if (isset($_POST["subs"])) {
             <div class="icon-box">
               <div class="icon"><i class="bx bx-tachometer"></i></div>
               <h4 class="title"><a href="">Tentukan Masa Depan HIMA RPL</a></h4>
-              <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim</p>
+              <p class="description">Bergabung dalam kepengurusan untuk membangung organisasi</p>
             </div>
           </div>
 
@@ -174,7 +172,7 @@ if (isset($_POST["subs"])) {
             <div class="icon-box">
               <div class="icon"><i class="bx bx-world"></i></div>
               <h4 class="title"><a href="">Pilih Kandidat Ketua HIMA</a></h4>
-              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum</p>
+              <p class="description">Lakukan voting dalam pemilihan Ketua Himpunan Mahasiswa Rekayasa Perangkat Lunak</p>
             </div>
           </div>
 
@@ -403,7 +401,6 @@ if (isset($_POST["subs"])) {
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -411,8 +408,6 @@ if (isset($_POST["subs"])) {
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
-
-  <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
 </body>

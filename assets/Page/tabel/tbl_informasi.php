@@ -153,6 +153,9 @@ include "../../proses/koneksi_db.php";
                     while($data = mysqli_fetch_array($query2)) { ?>
                             
                       <tr>
+                        <td hidden>
+                          <?php echo $data['kode_info']; ?>
+                        </td>
                         <td>
                             <?php echo $i++; ?>
                         </td>
@@ -263,7 +266,7 @@ include "../../proses/koneksi_db.php";
 <div id="deleteEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="proses/inventory_proses.php" method="POST">
+			<form action="proses/informasi_proses.php" method="POST">
         <input type="hidden" name="delete_kode" id="delete_kode" value="#delete_kode">			
 				<div class="modal-header">						
 					<h4 class="modal-title">Delete Barang</h4>
@@ -275,7 +278,7 @@ include "../../proses/koneksi_db.php";
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger" name="deletebarang" value="Delete">
+					<input type="submit" class="btn btn-danger" name="deleteinformasi" value="Delete">
 				</div>
 			</form>
 		</div>
@@ -308,31 +311,6 @@ include "../../proses/koneksi_db.php";
 <script>
         $(document).ready(function () {
 
-            $('.editbtn').on('click', function () {
-
-                $('#editEmployeeModal').modal('show');
-
-                $tr = $(this).closest('tr');
-
-                var data = $tr.children("td").map(function () {
-                    return $(this).text();
-                }).get();
-
-                console.log(data);
-
-                $('#update_kode').val(data[1]);
-                // $('#nama_barang').val(data[1]);
-                // $('#deskripsi').val(data[2]);
-                // $('#stok').val(data[3]);
-                // $('#filter').val(data[4]);
-                // $('#image').val(data[5]);
-            });
-        });
-    </script>
-
-<script>
-        $(document).ready(function () {
-
             $('.deletebtn').on('click', function () {
 
                 $('#deleteEmployeeModal').modal('show');
@@ -345,7 +323,7 @@ include "../../proses/koneksi_db.php";
 
                 console.log(data);
 
-                $('#delete_kode').val(data[1]);
+                $('#delete_kode').val(data[0]);
             });
         });
     </script>

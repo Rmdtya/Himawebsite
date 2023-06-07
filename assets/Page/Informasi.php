@@ -133,8 +133,6 @@ include "../proses/koneksi_db.php";
           }
           ?>
 
-          
-          
         <div class="row gy-4 posts-list">
         <?php
               $query1 = mysqli_query($koneksi, "SELECT * FROM tbl_informasi");
@@ -142,7 +140,7 @@ include "../proses/koneksi_db.php";
                 <div class="col-xl-4 col-md-6">
                   <article>
                     <div class="post-img">
-                      <img src="../Image/blog/blog-1.jpg" alt="" class="img-fluid">
+                      <img src="../Image/informasi/<?php echo $data['image1']; ?>" alt="" class="img-fluid">
                     </div>
                     <p class="post-category"><?php echo $data['topik']; ?></p>
                     <h2 class="title">
@@ -164,6 +162,7 @@ include "../proses/koneksi_db.php";
           </ul>
         </div><!-- End blog pagination -->
       </div>
+
 
 <?php
       $query1 = mysqli_query($koneksi, "SELECT * FROM tbl_informasi");

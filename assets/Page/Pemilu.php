@@ -106,7 +106,7 @@ include "../proses/koneksi_db.php";
 
           <div class="col-xl-4 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
             <div class="member">
-              <img src="../img/team/team-1.jpg" class="img-fluid" alt="">
+              <img src="../Image/previewcalon1.png" class="img-fluid" alt="">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4 style="background:none; border:none;" href="#" type="button" class="details-link calon1" data-bs-toggle="modal" data-toggle="modal" title="Vote Now">Ramaditya Firdaus</h4>
@@ -124,7 +124,7 @@ include "../proses/koneksi_db.php";
 
           <div class="col-xl-4 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
             <div class="member">
-              <img src="../img/team/team-3.jpg" class="img-fluid morebtn" alt="">
+              <img src="../Image/previewcalon2.png" class="img-fluid" alt="">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4 style="background:none; border:none;" href="#" type="button" class="details-link calon2" data-bs-toggle="modal" data-toggle="modal" title="Vote Now">Muhammad Rafid</h4>
@@ -142,7 +142,7 @@ include "../proses/koneksi_db.php";
 
           <div class="col-xl-4 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
             <div class="member">
-              <img src="../img/team/team-4.jpg" class="img-fluid" alt="">
+              <img src="../Image/previewcalon3.png" class="img-fluid" alt="">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4 style="background:none; border:none;" href="#" type="button" class="details-link calon3" data-bs-toggle="modal" data-toggle="modal" title="Vote Now">Cherry Adya</h4>
@@ -191,7 +191,7 @@ while($data = mysqli_fetch_array($query)) { ?>
          
             <div style="padding-bottom:0; border:none;" class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-            <img style="width:92%;" src="../Image/calon1.png" alt="Profile" class="shadow-4-strong img-fluid ">
+            <img style="width:92%;" src="../Image/<?php echo $data['image']; ?>" alt="Profile" class="shadow-4-strong img-fluid ">
 
             </div>
           </div>
@@ -212,7 +212,7 @@ while($data = mysqli_fetch_array($query)) { ?>
                           </li>
 
                           <li class="nav-item">
-                            <button class="nav-link <?php echo $data['no_urut']; ?> " data-bs-toggle="tab" data-bs-target="#profile-settings<?php echo $data['no_urut']; ?>">Misi</button>
+                            <button class="nav-link <?php echo $data['no_urut']; ?> " data-bs-toggle="tab" data-bs-target="#profile-settings<?php echo $data['no_urut']; ?>">Program Kerja</button>
                           </li>
                         </ul>
                         <div class="tab-content pt-2">

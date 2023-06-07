@@ -6,18 +6,6 @@
 
 include "koneksi_db.php";
 
-// $target_kode = $_POST['target_kode'];
-// $lama_pinjam = $_POST['lama_pinjam'];
-// $jumlah = $_POST['jumlah'];
-// $deskripsi = $_POST['deskripsi'];
-// $target = trim($target_kode);
-
-// echo $target . $target;
-// echo "help";
-// echo $lama_pinjam . "<br>";
-// echo $stok . "<br>";
-// echo $deskripsi;
-
 if (isset($_POST["pinjambarang"])) {
 
   try {
@@ -48,7 +36,6 @@ if (isset($_POST["pinjambarang"])) {
     while($data = mysqli_fetch_array($result)) { 
       $stok = $data['stok'];
     }
-
 
     $stok_now = $stok + $jumlah;
     echo $stok_now . $stok_now;
